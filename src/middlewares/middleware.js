@@ -1,16 +1,9 @@
 const jwt = require('jsonwebtoken')
+const { decodeToken } = require('../helpers/helper')
 
 const authMiddleware = (request, response, next) => {
 
-  const authToken = request.headers.authorization
-
-  if (!authToken) {
-    return response.status(401).json({
-      message: "Token inválido"
-    })
-  }
-
-  const token = authToken.split(" ")[1]
+  const token = decodeToken(request, response)
 
   try {
     jwt.verify(token, process.env.JWT_SECRET)

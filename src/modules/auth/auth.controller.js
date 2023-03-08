@@ -1,12 +1,14 @@
 const prisma = require("../../../prisma/client")
 const jwt = require('jsonwebtoken')
+const { decodeToken } = require("../../helpers/helper")
 
 class AuthController {
 
   async login(request, response) {
+
     const user = await prisma.user.findFirst({
       where: {
-        email: request.body.name,
+        email: request.body.email,
         password: request.body.password
       }
     })
@@ -24,6 +26,11 @@ class AuthController {
     })
 
     return response.status(200).json({token: token})
+  }
+
+
+  async me(request, response) {
+    return response.status(200).json(jwt.decode(decodeToken(request, response)))
   }
 }
 
