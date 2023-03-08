@@ -45,7 +45,7 @@ class UsersService {
       })
     }
 
-    return await usersRepository.create(body, response)
+    return usersRepository.create(body, response)
   }
 
 
@@ -73,7 +73,7 @@ class UsersService {
       })
     }
 
-    return await usersRepository.edit(user, body, response)
+    return usersRepository.edit(user, body, response)
   }
 
 
@@ -90,7 +90,7 @@ class UsersService {
       })
     }
 
-    return await usersRepository.delete(user, response)
+    return usersRepository.delete(user, response)
   }
 }
 

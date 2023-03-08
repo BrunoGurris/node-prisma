@@ -4,15 +4,15 @@ const usersService = new UsersService()
 
 class UsersController {
 
-  async getAll(req, res) {
-    res.send('Get All')
+  async getAll(request, response) {
+    const users = await prisma.user.findMany()
+    return response.status(200).json(users)
   }
 
 
   async create(request, response) {
     const body = request.body
-
-    return await usersService.create(body, response)
+    return usersService.create(body, response)
   }
 
 
@@ -23,8 +23,8 @@ class UsersController {
         id: Number(request.params.id)
       }
     })
-
-    return await usersService.edit(user, body, response)
+    
+    return usersService.edit(user, body, response)
   }
 
 
@@ -35,7 +35,7 @@ class UsersController {
       }
     })
 
-    return await usersService.delete(user, response)
+    return usersService.delete(user, response)
   }
 }
 
